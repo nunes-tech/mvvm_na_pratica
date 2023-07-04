@@ -6,15 +6,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nunes.mvvmnapratica.databinding.PostagemRecyclerBinding
 import com.nunes.mvvmnapratica.model.Photo
 import com.nunes.mvvmnapratica.model.Postagem
+import com.nunes.mvvmnapratica.view.OnItemClickListener
 import com.squareup.picasso.Picasso
 
 class AdapterPostagem : RecyclerView.Adapter<AdapterPostagem.PostagemViewHolder>() {
 
-    private var lista = listOf<Postagem>()
+    private var postagens = listOf<Postagem>()
     private var photos = listOf<Photo>()
+    private var itemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
+    }
 
     fun atualizarLista(list : List<Postagem>){
-        this.lista = list
+        this.postagens = list
         notifyDataSetChanged()
     }
 
@@ -31,8 +37,8 @@ class AdapterPostagem : RecyclerView.Adapter<AdapterPostagem.PostagemViewHolder>
         : RecyclerView.ViewHolder(bind.root) {
 
             fun conectarBind(position : Int) {
-                bind.textBody.text = lista[position].body
-                bind.textTitulo.text = lista[position].title
+                bind.textBody.text = postagens[position].body
+                bind.textTitulo.text = postagens[position].title
 
                 if (photos.isNotEmpty()) {
                     Picasso.get()
@@ -52,11 +58,15 @@ class AdapterPostagem : RecyclerView.Adapter<AdapterPostagem.PostagemViewHolder>
     }
 
     override fun getItemCount(): Int {
-        return lista.size
+        return postagens.size
     }
 
     override fun onBindViewHolder(holder: PostagemViewHolder, position: Int) {
         holder.conectarBind(position)
+
+        holder.itemView.setOnClickListener {
+            itemClickListener?.onItemClick( postagens[position] )
+        }
     }
 
 }

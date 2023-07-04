@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.nunes.mvvmnapratica.model.Photo
 import com.nunes.mvvmnapratica.model.Postagem
 import com.nunes.mvvmnapratica.repository.MainRepository
+import com.nunes.mvvmnapratica.view.OnItemClickListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,6 +17,12 @@ class MainViewModel(private val mainRepository : MainRepository) : ViewModel() {
     val errorMessage = MutableLiveData<String>()
     val livePhotos = MutableLiveData<List<Photo>>()
     val livePhotosErro = MutableLiveData<String>()
+
+    private var itemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
+    }
 
     fun recuperarPostagens() {
 
