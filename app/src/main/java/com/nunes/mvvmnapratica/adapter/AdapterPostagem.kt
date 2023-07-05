@@ -65,7 +65,7 @@ class AdapterPostagem : RecyclerView.Adapter<AdapterPostagem.PostagemViewHolder>
         holder.conectarBind(position)
 
         holder.itemView.setOnClickListener {
-            itemClickListener?.onItemClick( postagens[position] )
+            itemClickListener?.onItemClick( postagens[holder.adapterPosition] )
         }
     }
 

@@ -9,4 +9,6 @@ class MainRepository (private val apiService : IRetrofit) {
 
     fun recuperarPhotos() = apiService.recuperarPhotos()
 
+    fun recuperarComentarios(id : Int) = apiService.recuperarComentarios(id)
+
 }

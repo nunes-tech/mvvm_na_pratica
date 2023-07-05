@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
-    private val retrofitInstance by lazy { Retrofit.retrofit }
+    private val retrofitInstance by lazy { Retrofit.apiJsonPlaceHolder }
 
     private val adapterPostagem by lazy { AdapterPostagem() }
 
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
         val intent = Intent(applicationContext, PostagemActivity::class.java)
         intent.putExtra("postagem", item)
 
-        if (photo != null) intent.putExtra("photo", photo[item.id])
+        if (photo != null) intent.putExtra("photo", photo[item.id -1])
         startActivity(intent)
 
     }
